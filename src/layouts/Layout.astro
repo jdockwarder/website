@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import { Font } from "astro:assets";
-import Sidebar from "../components/Sidebar.astro";
 ---
 
 <!doctype html>
@@ -13,21 +12,10 @@ import Sidebar from "../components/Sidebar.astro";
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <Font cssVariable="--font-inter" preload />
-	<Font cssVariable="--font-ibm-plex-mono" preload />
+    <Font cssVariable="--font-ibm-plex-mono" preload />
     <title>Astro Basics</title>
   </head>
-  <body
-    class="lg:h-full font-sans antialiased text-neutral-500 bg-neutral-50 flex flex-col lg:flex-row"
-  >
-    <div class="w-full lg:max-w-90 p-2">
-      <Sidebar />
-    </div>
-    <main class="size-full p-2">
-      <div class="@container size-full lg:overflow-scroll p-4 bg-white rounded-[calc(var(--radius-3xl)+8px)] transition-[border-radius] shadow-card">
-        <div class="mx-auto max-w-3xl container">
-          <slot />
-        </div>
-      </div>
-    </main>
+  <body class="px-6 font-sans leading-relaxed antialiased text-neutral-500 bg-neutral-50">
+    <slot />
   </body>
 </html>

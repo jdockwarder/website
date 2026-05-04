@@ -1,14 +1,36 @@
 ---
-const {title} = Astro.props
+import Image from "astro/components/Image.astro";
+
+const { title, img } = Astro.props;
 ---
 
-<div class="bg-neutral-50 shadow-card p-1 rounded-3xl md:col-span-2">
+<div class="bg-neutral-50 shadow-card p-1 rounded-3xl">
   <div
     class="bg-white rounded-[calc(var(--radius-3xl)-.25rem)] border border-neutral-200 overflow-hidden"
   >
-    <div class="px-6 pt-2 pb-3 bg-neutral-50 border-b border-neutral-200">
-      <span class="text-xs font-mono uppercase">{title}</span>
-    </div>
+    {
+      title && (
+        <div
+          class="px-6 pt-2 pb-2.5 bg-neutral-50 border-neutral-200"
+          class:list={{ "border-b": !!img }}
+        >
+          <span class="text-xs font-mono uppercase">{title}</span>
+        </div>
+      )
+    }
+    {
+      img && (
+        <div>
+          <Image
+            src={img}
+            alt=""
+            width="1280"
+            height="630"
+            class="outline-1 -outline-offset-1 outline-black/10 rounded-t-[calc(var(--radius-3xl)-.25rem)]"
+          />
+        </div>
+      )
+    }
     <div>
       <slot />
     </div>

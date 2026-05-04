@@ -3,6 +3,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import preact from "@astrojs/preact";
+
 // https://astro.build/config
 export default defineConfig({
   fonts: [
@@ -21,7 +23,10 @@ export default defineConfig({
       weights: ["400 700"],
     },
   ],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  integrations: [preact({ compat: true })],
 });
