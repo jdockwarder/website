@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin "@tailwindcss/typography";
+
 @theme inline {
     --font-sans: var(--font-inter);
     --font-mono: var(--font-ibm-plex-mono);
@@ -17,5 +19,5 @@
 }
 
 ::selection {
-    background: var(--color-neutral-200);
+    background: rgba(0, 0, 0, 0.15);
 }

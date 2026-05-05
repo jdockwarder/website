@@ -5,8 +5,12 @@ import tailwindcss from '@tailwindcss/vite';
 
 import preact from "@astrojs/preact";
 
+import mdx from "@astrojs/mdx";
+
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://julius.dev',
+
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -28,5 +32,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [preact({ compat: true })],
+  integrations: [preact({ compat: true }), mdx()],
 });

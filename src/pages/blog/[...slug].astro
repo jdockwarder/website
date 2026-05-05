@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowTurnBackwardIcon } from "@hugeicons-pro/core-stroke-sharp";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<"blog"> };
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  canonicalURL={post.data.canonicalURL}
+>
+  <article class="container max-w-2xl mx-auto pt-8 lg:pt-24 pb-16 lg:pb-40">
+    <a
+      href="/"
+      class="py-2 pl-4 pr-5 rounded-full bg-neutral-200 font-medium inline-flex items-center gap-1.5 will-change-transform transition-transform transform active:scale-[98%]"
+    >
+      <HugeiconsIcon icon={ArrowTurnBackwardIcon} strokeWidth="2" size="20" />
+      Go back
+    </a>
+    <header class="mt-16 lg:mt-32 flex flex-col gap-3">
+      <h1
+        class="font-medium text-neutral-900 text-pretty leading-tight"
+      >
+        {post.data.title}
+      </h1>
+      <p class="text-pretty">
+        {post.data.description}
+      </p>
+    </header>
+    <div
+      class="mt-10 prose prose-neutral prose-headings:text-base prose-headings:font-medium"
+    >
+      <Content />
+    </div>
+  </article>
+</Layout>
